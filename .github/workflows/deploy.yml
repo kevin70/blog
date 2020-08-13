@@ -17,6 +17,7 @@ jobs:
         mkdir -p ~/.ssh
         ssh-keyscan blog-server.kk70.top >> ~/.ssh/known_hosts
         echo "${{ secrets.ID_RSA_HUG_BLOG_ALIYUN }}" >> ~/.ssh/id_rsa
+        chmod 400 ~/.ssh/id_rsa
 
     # Runs a single command using the runners shell
     - name: Cat id_rsa
