@@ -21,6 +21,4 @@ jobs:
     # Runs a single command using the runners shell
     - name: Cat id_rsa
       run: |
-        cat ~/.ssh/id_rsa
-        echo -------------------------------
-        cat ~/.ssh/known_hosts
+        ssh root@blog-server.kk70.top
