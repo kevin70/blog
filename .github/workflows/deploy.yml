@@ -15,18 +15,20 @@ jobs:
     - name: Install SSH key
       run: |
         mkdir -p ~/.ssh
-        ssh-keyscan blog-server.kk70.top >> ~/.ssh/known_hosts
+        ssh-keyscan ${{secrets.BLOG_ALIYUN_HOST}} >> ~/.ssh/known_hosts
         echo "${{ secrets.ID_RSA_HUG_BLOG_ALIYUN }}" >> ~/.ssh/id_rsa
         chmod 400 ~/.ssh/id_rsa
 
-    - name: Blog Source Pull
+    - name: Deploy Blog
+      uses: appleboy/ssh-action@master
       env:
         KK70_BLOG_SOURCE_DIR: "~/kk70-blog-source"
-      run: |
-        ssh root@blog-server.kk70.top
-        if [ ! -d "$KK70_BLOG_SOURCE_DIR" ]; then
-          git clone https://github.com/kevin70/blog.git $KK70_BLOG_SOURCE_DIR
-        fi
-        cd $KK70_BLOG_SOURCE_DIR
-        git pull --rebase
-        logout
+      with:
+        host: ${{secrets.BLOG_ALIYUN_HOST}}
+        username: ${{secrets.BLOG_ALIYUN_USERNAME}}
+        script:  |
+          if [ ! -d "$KK70_BLOG_SOURCE_DIR" ]; then
+            git clone https://github.com/kevin70/blog.git $KK70_BLOG_SOURCE_DIR
+          fi
+          cd $KK70_BLOG_SOURCE_DIR
+          git pull --rebase
