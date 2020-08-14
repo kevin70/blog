@@ -23,8 +23,10 @@ jobs:
       env:
         KK70_BLOG_SOURCE_DIR: "~/kk70-blog-source"
       run: |
+        ssh root@blog-server.kk70.top
         if [ ! -d "$KK70_BLOG_SOURCE_DIR" ]; then
           git clone https://github.com/kevin70/blog.git $KK70_BLOG_SOURCE_DIR
         fi
         cd $KK70_BLOG_SOURCE_DIR
         git pull --rebase
+        logout
