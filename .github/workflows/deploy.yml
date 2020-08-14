@@ -14,15 +14,13 @@ jobs:
 
     - name: Deploy Blog
       uses: appleboy/ssh-action@master
-      env:
-        KK70_BLOG_SOURCE_DIR: "~/kk70-blog-source"
       with:
         host: ${{secrets.BLOG_ALIYUN_HOST}}
         username: ${{secrets.BLOG_ALIYUN_USERNAME}}
         key: ${{secrets.ID_RSA_HUG_BLOG_ALIYUN}}
         script:  |
-          if [ ! -d "$KK70_BLOG_SOURCE_DIR" ]; then
-            git clone https://github.com/kevin70/blog.git $KK70_BLOG_SOURCE_DIR
+          if [ ! -d "~/kk70-blog-source" ]; then
+            git clone https://github.com/kevin70/blog.git ~/kk70-blog-source
           fi
-          cd $KK70_BLOG_SOURCE_DIR
+          cd ~/kk70-blog-source
           git pull --rebase
