@@ -24,4 +24,4 @@ jobs:
           fi
           cd ~/kk70-blog-source
           git pull --rebase
-          docker run -d --name hugo -v ~/kk70-blog-source:/src klakegg/hugo:0.74.3 server
+          docker run --rm -it -v ~/kk70-blog-source:/src klakegg/hugo:0.74.3
