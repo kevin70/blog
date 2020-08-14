@@ -11,13 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    # 安装 SSH Key
-    - name: Install SSH key
-      run: |
-        mkdir -p ~/.ssh
-        ssh-keyscan ${{secrets.BLOG_ALIYUN_HOST}} >> ~/.ssh/known_hosts
-        echo "${{ secrets.ID_RSA_HUG_BLOG_ALIYUN }}" >> ~/.ssh/id_rsa
-        chmod 400 ~/.ssh/id_rsa
 
     - name: Deploy Blog
       uses: appleboy/ssh-action@master
@@ -26,6 +19,7 @@ jobs:
       with:
         host: ${{secrets.BLOG_ALIYUN_HOST}}
         username: ${{secrets.BLOG_ALIYUN_USERNAME}}
+        key: ${{secrets.ID_RSA_HUG_BLOG_ALIYUN}}
         script:  |
           if [ ! -d "$KK70_BLOG_SOURCE_DIR" ]; then
             git clone https://github.com/kevin70/blog.git $KK70_BLOG_SOURCE_DIR
