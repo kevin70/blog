@@ -19,9 +19,10 @@ jobs:
         username: ${{secrets.BLOG_ALIYUN_USERNAME}}
         key: ${{secrets.ID_RSA_HUG_BLOG_ALIYUN}}
         script:  |
-          if [ ! -d "~/kk70-blog-source" ]; then
-            git clone https://github.com/kevin70/blog.git ~/kk70-blog-source
+          if [ ! -d "kk70-blog-source" ]; then
+            git clone https://github.com/kevin70/blog.git kk70-blog-source
           fi
-          cd ~/kk70-blog-source
+          cd kk70-blog-source
           git pull --rebase
-          docker run --rm -it -v ~/kk70-blog-source:/src klakegg/hugo:0.74.3
+          docker run --rm -i -v kk70-blog-source:/src klakegg/hugo:0.74.3
+          cp -R public/* /usr/share/nginx/kk70.top/
