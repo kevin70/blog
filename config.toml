@@ -71,7 +71,7 @@ disqusShortname = "kk70"  ## 是否开启disqus评论，不要和utteranc同时�
 [markup]
   [markup.highlight]
     lineNos = true
-    style = "github"
+    style = "solarized-dark"
 
 ## 配置网站菜单
 
