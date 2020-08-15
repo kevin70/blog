@@ -7,3 +7,5 @@ description: 鼓励师：搬砖，码农，程序员，程序猿，工程师，�
 一个**不**喜欢鼓励师的码农在搬砖找着程序**猿**的兄弟攻城**狮**。
 
 邮箱：[kevinz@weghst.com](mailto:kevinz@weghst.com)
+
+博客仓库：[https://github.com/kevin70/blog](https://github.com/kevin70/blog)
