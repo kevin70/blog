@@ -74,6 +74,11 @@ disqusShortname = "kk70"  ## 是否开启disqus评论，不要和utteranc同时�
 ## 配置网站菜单
 
 [menu]
+  [[menu.main]]
+    identifier = "about"
+    name = "博客"
+    url = "/posts/"
+    weight = 4
 
   [[menu.main]]
     identifier = "about"
