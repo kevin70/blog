@@ -1,7 +1,8 @@
 baseURL = "https://kk70.top"
-languageCode = "zh-CN"
 title = "kk70 的博客"
 theme = "hugo-coder"
+
+languageCode = "zh-CN"
 googleAnalytics = ""  # UA-XXXXXXXX-X
 
 ## 保持分类的原始名字（false会做转小写处理）
@@ -23,11 +24,18 @@ disqusShortname = "kk70"  ## 是否开启disqus评论，不要和utteranc同时�
   keywords = "Java,JavaEE,Spring,SpringBoot,PostgreSQL,MySQL,分布式集群"
   description = "专注于Java、服务端、分布式集群、软件架构"
   info = "Full Stack DevOps and Magician"
-  avatarurl = "images/avatar.jpg"
+  gravatar = "kevinz@weghst.com"
   busuanzi = true #启用不算子网页统计
   googleAd = ""  #ca-pub-xxxxxxxxxxxxxx
   localSearch = true # 启用本地搜索
   footercontent = "渝ICP备20009935号"
+
+  # Specify light/dark colorscheme
+  # Supported values:
+  # "auto" (use preference set by browser)
+  # "dark" (dark background, light foreground)
+  # "light" (light background, dark foreground) (default)
+  colorscheme = "auto"
 
   # Enable Twemoji
   enableTwemoji = true
@@ -50,8 +58,12 @@ disqusShortname = "kk70"  ## 是否开启disqus评论，不要和utteranc同时�
 
 ## 开启版权声明，协议名字和链接都可以换
 [params.cc]
-    name = "知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议"
-    link = "https://creativecommons.org/licenses/by-nc-nd/4.0/"
+  name = "知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议"
+  link = "https://creativecommons.org/licenses/by-nc-nd/4.0/"
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
 
 ## 配置代码高亮
 [markup]
