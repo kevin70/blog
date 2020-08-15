@@ -1,7 +1,7 @@
 baseURL = "https://kk70.top"
 languageCode = "zh-CN"
 title = "kk70 的博客"
-theme = "maupassant"
+theme = "hugo-coder"
 googleAnalytics = ""  # UA-XXXXXXXX-X
 
 ## 保持分类的原始名字（false会做转小写处理）
@@ -22,16 +22,21 @@ disqusShortname = "kk70"  ## 是否开启disqus评论，不要和utteranc同时�
   subtitle = "专注于Java、服务端、分布式集群、软件架构"
   keywords = "Java,JavaEE,Spring,SpringBoot,PostgreSQL,MySQL,分布式集群"
   description = "专注于Java、服务端、分布式集群、软件架构"
+  info = "Full Stack DevOps and Magician"
+  avatarurl = "images/avatar.jpg"
   busuanzi = true #启用不算子网页统计
   googleAd = ""  #ca-pub-xxxxxxxxxxxxxx
   localSearch = true # 启用本地搜索
-  beian = "渝ICP备20009935号"
+  footercontent = "渝ICP备20009935号"
 
-  # 这里我存放在了主题的static文件夹里，根目录的似乎也可以
-  customCSS = ['douban.css', 'other.css']
-  # if ['custom.css'], load '/static/css/custom.css' file
-  customJS = ['douban.js']
-  # if ['custom.js'], load '/static/js/custom.js' file
+  # Enable Twemoji
+  enableTwemoji = true
+
+  # Custom CSS
+  custom_css = []
+
+  # Custom JS
+  custom_js = []
 
   # 全局开关，你也可以在每一篇内容的 front matter 中针对单篇内容关闭或开启某些功能
   toc = true  # 是否开启目录
