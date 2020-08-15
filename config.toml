@@ -59,12 +59,6 @@ disqusShortname = "yourdiscussshortname"  ## 是否开启disqus评论，不要�
 [menu]
 
   [[menu.main]]
-    identifier = "archives"
-    name = "归档"
-    url = "/archives/"
-    weight = 3
-
-  [[menu.main]]
     identifier = "about"
     name = "关于"
     url = "/about/"
