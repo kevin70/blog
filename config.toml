@@ -30,6 +30,8 @@ disqusShortname = "kk70"  ## 是否开启disqus评论，不要和utteranc同时�
   localSearch = true # 启用本地搜索
   footercontent = "渝ICP备20009935号"
 
+  dateformat = "2006-01-02"
+
   # Specify light/dark colorscheme
   # Supported values:
   # "auto" (use preference set by browser)
