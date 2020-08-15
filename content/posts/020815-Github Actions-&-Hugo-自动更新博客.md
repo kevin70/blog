@@ -81,7 +81,7 @@ docker run --rm -i -v ~/kk70-blog-source:/src klakegg/hugo:0.74.3
 ```
 
 ### 将站点部署到 Nginx
-```
+```shell
 if [ ! -d "/usr/share/nginx/kk70.top" ]; then
   mkdir -p /usr/share/nginx/kk70.top
 else
