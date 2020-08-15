@@ -26,7 +26,7 @@ jobs:
           git pull --rebase
           git submodule update --init --recursive
 
-          docker run --rm -i -v ~/kk70-blog-source:/src klakegg/hugo:0.74.3 hugo --minify
+          docker run --rm -i -v ~/kk70-blog-source:/src klakegg/hugo:0.74.3 --minify
 
           if [ ! -d "/usr/share/nginx/kk70.top" ]; then
             mkdir -p /usr/share/nginx/kk70.top
