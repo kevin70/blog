@@ -67,7 +67,62 @@ gpg --keyserver hkps.pool.sks-keyservers.net --send-keys 2B89E19F
 使用 `gpg` 命令将证书发布到公共服务器 `2B89E19F` 替换为自己证书的 keyid。可在 [http://keys.gnupg.net/](http://keys.gnupg.net/) 网站搜索自己发布的证书。
 
 ## Gradle 项目配置
+### 配置 Gradle 插件
+```
+plugins {
+  id "maven-publish"
+  id "signing"
+}
+```
+要使用 Gradle 发布依赖至 Maven 仓库你至少需要 `maven-publish` 插件。如果需要发布依赖至 Maven 中央仓库还需要使用 `signing` 插件对依赖文件进行签名验证。
 
+## publish 配置
+```groovy
+ext {
+  isReleasedVersion = !project.version.endsWith("-SNAPSHOT")
+}
+
+publishing {
+  publications {
+    mavenJava(MavenPublication) {
+      from components.java
+      artifact sourcesJar
+      artifact javadocJar
+
+      pom {
+        description = "Yein Chaos Core"
+        scm {
+          connection = "scm:git:git@github.com:kevin70/chaos.git"
+          developerConnection = "scm:git:ssh://github.com/kevin70/chaos.git"
+          url = "https://github.com/kevin70/chaos"
+        }
+        developers {
+          developer {
+            id = "kk70"
+            name = "Kevin Zou"
+            email = "kevinz@weghst.com"
+            url = "https://kk70.top"
+          }
+        }
+      }
+    }
+  }
+  repositories {
+    maven {
+      credentials {
+        username findProperty("ossrhUsername") ?: System.getenv("OSSRH_USERNAME")
+        password findProperty("ossrhPassword") ?: System.getenv("OSSRH_PASSWORD")
+      }
+
+      if (!isReleasedVersion) {
+        url "https://oss.sonatype.org/content/repositories/snapshots"
+      } else {
+        url "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+      }
+    }
+  }
+}
+```
 
 ---
 
