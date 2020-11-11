@@ -31,7 +31,7 @@ $ gpg --full-generate-key
 
 运行上面的命令按照指示生成 RSA 的证书。
 
-```
+```shell
 C:\Users\admin>gpg --full-generate-key
 gpg (GnuPG) 2.2.23; Copyright (C) 2020 Free Software Foundation, Inc.
 This is free software: you are free to change and redistribute it.
@@ -49,7 +49,7 @@ sub   rsa3072 2020-11-10 [E] [expires: 2021-11-10]
 
 ### 浏览证书
 可以使用 `gpg --list-secret-keys --keyid-format SHORT` 命令查询证书列表。
-```
+```shell
 C:\Users\admin>gpg --list-secret-keys --keyid-format SHORT
 C:/Users/admin/AppData/Roaming/gnupg/pubring.kbx
 ------------------------------------------------
@@ -67,7 +67,7 @@ gpg --keyserver hkps.pool.sks-keyservers.net --send-keys 2B89E19F
 
 ## Gradle 项目配置
 ### 配置 Gradle 插件
-```
+```groovy
 plugins {
   id "maven-publish"
   id "signing"
@@ -149,9 +149,9 @@ signing {
 * `SIGNING_SECRET_KEY_RING_FILE` 是 GPG 证书的的秘钥采用 BASE64 编码。
 
 ### 获取 SIGNING_KEY_ID
-使用 `$gpg --list-secret-keys --keyid-format SHORT` 命令获取 `SIGNING_KEY_ID`。
+使用 `gpg --list-secret-keys --keyid-format SHORT` 命令获取 `SIGNING_KEY_ID`。
 ```shell
-$gpg --list-secret-keys --keyid-format SHORT
+$ gpg --list-secret-keys --keyid-format SHORT
 
 C:\Users\admin>gpg --list-secret-keys --keyid-format SHORT
 C:/Users/admin/AppData/Roaming/gnupg/pubring.kbx
@@ -166,7 +166,7 @@ ssb   rsa3072/6B7BF2DA 2020-11-10 [E] [expires: 2021-11-10]
 ### 获取 SIGNING_SECRET_KEY_RING_FILE
 将秘钥导出至文件 `secring.gpg`。
 ```shell
-$gpg --export-secret-keys 2B89E19F > secring.gpg
+$ gpg --export-secret-keys 2B89E19F > secring.gpg
 ```
 将秘钥文件是二进制的我们需要将内容编码为 BASE64。因为我使用的 Windows 所以下面这个命令我是在 **Git Bash** 中运行的，如果你使用的 Mac 或 Linux 也可以直接运行如下的命令。
 ```shell
