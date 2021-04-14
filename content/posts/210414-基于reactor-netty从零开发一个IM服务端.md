@@ -128,7 +128,7 @@ tethys                    项目根目录
 
 ![](../../static/images/210414/20210414164336.png)
 
-### ImServer 类
+### `ImServer` 类
 ```java
 @Log4j2
 public final class ImServer {
@@ -204,7 +204,7 @@ public final class ImServer {
 }
 ```
 
-### ② 启动 reactor-netty 服务的逻辑
+#### ② 启动 reactor-netty 服务的逻辑
 - **<2.1>** 注册 HTTP 路由，这里服务可能会有应用信息、健康检查等接口可通过 `RoutingService` 注册。
 - **<2.2>** 注册 WebSocket 处理器。
 - **<2.3>** 禁用 netty 默认的 WebSocket `ping/pong` 实现逻辑，`ping` 一般我们会用于心跳，维持连接状态，但是像很多 WebSocket 实现并不支持默认的 `ping/pong` 逻辑，所以我们尽量单独提供消息来实现心跳逻辑。
@@ -212,7 +212,60 @@ public final class ImServer {
 - **<2.5>** 在客户端连接之前我们向 reactor-netty 添加 `CorsHandler` 处理器，这样才可保证请求是支持跨域处理的。
 - **<2.6>** 向 reactor-netty 注册 HTTP 处理器（这里使用了一个 Wrapper 包装器后续我们在详细了解 `HttpServerRoutesWrapper` 的实现）。
 
-### ③ 停止 reactor-netty 服务
+#### ③ 停止 reactor-netty 服务
 
 - **<3.1>** 这里使用的 `disposeNow` 方法释放 reactor-netty，该方法实现默认会阻塞 3 秒等待 reactor-netty 所有资源释放。
 
+### `HttpServerRoutesWrapper` 类
+
+```java
+@Log4j2
+public class HttpServerRoutesWrapper implements HttpServerRoutes {
+
+  private final HttpServerRoutes routes;
+  private final HttpExceptionHandler httpExceptionHandler;
+
+  /**
+   * 构造函数.
+   *
+   * @param routes 被包装的路由对象
+   */
+  public HttpServerRoutesWrapper(HttpServerRoutes routes) {
+    this(routes, new HttpExceptionHandler());
+  }
+
+  /**
+   * 使用 routes、异常处理器构造对象.
+   *
+   * @param routes HTTP routes
+   * @param httpExceptionHandler 异常处理器
+   */
+  public HttpServerRoutesWrapper(
+      HttpServerRoutes routes, HttpExceptionHandler httpExceptionHandler) {
+    this.routes = routes;
+    this.httpExceptionHandler = httpExceptionHandler;
+  }
+
+  @Override
+  public HttpServerRoutes directory(
+      String uri,
+      Path directory,
+      @Nullable Function<HttpServerResponse, HttpServerResponse> interceptor) {
+    return routes.directory(uri, directory, interceptor);
+  }
+
+  @Override
+  public HttpServerRoutes route(
+      Predicate<? super HttpServerRequest> condition,
+      BiFunction<? super HttpServerRequest, ? super HttpServerResponse, ? extends Publisher<Void>>
+          handler) {
+    return routes.route(condition, handler);
+  }
+
+  @Override
+  public Publisher<Void> apply(HttpServerRequest request, HttpServerResponse response) {
+    return Flux.defer(() -> routes.apply(request, response))
+        .onErrorResume(t -> httpExceptionHandler.apply(request, response, t));
+  }
+}
+```
