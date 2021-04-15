@@ -265,7 +265,15 @@ public class HttpServerRoutesWrapper implements HttpServerRoutes {
   @Override
   public Publisher<Void> apply(HttpServerRequest request, HttpServerResponse response) {
     return Flux.defer(() -> routes.apply(request, response))
+        // 异常处理
         .onErrorResume(t -> httpExceptionHandler.apply(request, response, t));
   }
 }
+```
+
+`reactor-netty` 是一个非常基础的网络库，并没有额外提供异常处理机制。所以这里设计了一个 `HttpServerRoutesWrapper` 包装器，在实现内增加 `HttpExceptionHandler` 异常处理逻辑。
+
+### WebsocketHandler 类
+```
+
 ```
